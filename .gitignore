@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# Custom
+/build/dist
+/build/index.html
+/src/img/buttons.png
