@@ -28,6 +28,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-sequence": "^1.0.0",
     "gulp-wait": "0.0.2",
+    "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-stream": "^4.0.3"
   }

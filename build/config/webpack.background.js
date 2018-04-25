@@ -22,11 +22,12 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         use: {
-          loader: 'file-loader',
+          // loader: 'file-loader',
+          loader: 'url-loader',
           options: {
             // outputPath: 'assets',
             // name: '[sha256:hash:hex:64]'
-            name: '[name].[ext]'
+            // name: '[name].[ext]'
           }
         }
       }
