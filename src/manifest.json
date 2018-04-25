@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Hiori",
-  "shortname": "hiorisc",
+  "short_name": "hiorisc",
   "description": "Shiny colors",
   "version": "1.0.0",
   "icons": {
@@ -17,5 +17,8 @@
     "scripts": [
       "background.js"
     ]
-  }
+  },
+  "web_accessible_resources": [
+    "img/buttons.png"
+  ]
 }
