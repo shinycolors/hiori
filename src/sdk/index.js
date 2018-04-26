@@ -1,13 +1,19 @@
-const dot = require('dot-object')
-const req = require.context('./', true, /^((?!index).)*(.js)$/)
+// const dot = require('dot-object')
+// const req = require.context('./', true, /^((?!index).)*(.js)$/)
+//
+// let modules = {}
+//
+// req.keys().forEach(path => {
+//   let dotNotationPath = path.substring(2).replace('/', '.')
+//   modules[dotNotationPath] = req(path)
+// })
+//
+// let SDK = dot.object(modules)
+//
+// module.exports = SDK
 
-let modules = {}
+import Module from './Module'
 
-req.keys().forEach(path => {
-  let dotNotationPath = path.substring(2).replace('/', '.')
-  modules[dotNotationPath] = req(path)
-})
-
-let SDK = dot.object(modules)
-
-module.exports = SDK
+export default {
+  Module
+}

@@ -1,6 +1,21 @@
 
 class Module {
 
+  constructor() {
+
+  }
+
+  enable() {
+
+  }
+
+  disable() {
+
+  }
+
+  settings() {
+
+  }
 
 }
 

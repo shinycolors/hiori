@@ -60,5 +60,5 @@ typings/
 # Custom
 /build/dist
 /build/index.html
-/src/modules/replacer/jp
+/src/modules/replacer/ui/jp
 /dev

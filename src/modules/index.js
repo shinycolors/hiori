@@ -1,10 +1,16 @@
-const req = require.context('./', true, /^\.\/((?!(index|\/)).)+$/)
+// const req = require.context('./', true, /^\.\/((?!(index|\/)).)+$/)
+//
+// let modules = {}
+//
+// req.keys().forEach(path => {
+//   let moduleName = path.substring(2)
+//   modules[moduleName] = req(path)
+// })
+//
+// module.exports = modules
 
-let modules = {}
+import Replacer from './replacer'
 
-req.keys().forEach(path => {
-  let moduleName = path.substring(2)
-  modules[moduleName] = req(path)
-})
-
-module.exports = modules
+export default {
+  Replacer
+}
