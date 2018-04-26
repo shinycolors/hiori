@@ -7,6 +7,12 @@ module.exports = {
   output: {
     filename: 'background.js'
   },
+  resolve: {
+    alias: {
+      '@sdk': path.resolve(process.cwd(), 'src/sdk'),
+      '@modules': path.resolve(process.cwd(), 'src/modules')
+    }
+  },
   module: {
     rules: [
       {
@@ -22,14 +28,11 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         use: {
-          // loader: 'file-loader',
           loader: 'url-loader',
-          options: {
-            // outputPath: 'assets',
-            // name: '[sha256:hash:hex:64]'
-            // name: '[name].[ext]'
-          }
-        }
+        },
+        include: [
+          path.resolve(process.cwd(), 'src/modules/replacer')
+        ]
       }
     ]
   }

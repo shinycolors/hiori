@@ -60,4 +60,5 @@ typings/
 # Custom
 /build/dist
 /build/index.html
-/src/img/parts_buttons.png
+/src/modules/replacer/jp
+/dev

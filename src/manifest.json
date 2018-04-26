@@ -17,8 +17,5 @@
     "scripts": [
       "background.js"
     ]
-  },
-  "web_accessible_resources": [
-    "img/buttons.png"
-  ]
+  }
 }
