@@ -10,7 +10,7 @@ As of writing, the game is young and we have only started looking at game data. 
 * [Chrome WebStore]()
   * Free, one-click install! Use at your own risk :wink:
 * [~~Firefox Add-on~~]()
-  * For technical reasons, modules currently are not working on firefox.
+  * For technical reasons, modules are currently not working on firefox.
 * [~~Game Client~~]()
   * There are no plans for a desktop port. Just letting you know.
 
@@ -33,3 +33,14 @@ To setup a development environment for `hiori`
 * On Chrome extensions page, load unpacked extension `build/dist`
 
 During development, you may also run `npm run dev` to watch for file changes. It will automatically build each time.
+
+
+## Credits
+* **dragonjet** - developer
+* **victrock** - developer, translator
+* **MPThRee** - developer
+* **Rei** - developer
+* **Raemn** - cleaner, typesetter
+
+#### License
+See [LICENSE file](https://github.com/shinycolors/hiori/blob/develop/LICENSE)
