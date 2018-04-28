@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    './src/content.js'
+    './src/entry/content.js'
   ],
   output: {
     filename: 'content.js'
