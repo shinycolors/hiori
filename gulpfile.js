@@ -44,7 +44,7 @@ gulp.task('compile:injects', function() {
 
 // Watch
 gulp.task('watch', function() {
-	gulp.watch('src/**/*', ['compile'])
+	gulp.watch('src/**/*', ['static', 'compile'])
 })
 
 // Public (npm scripts)
