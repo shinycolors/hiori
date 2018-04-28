@@ -24,16 +24,16 @@ gulp.task('static:img', function() {
 
 // Webpack
 gulp.task('compile', function(done){
-	seq(['compile:background', 'compile:content'])(done)
+	seq(['compile:background', 'compile:injects'])(done)
 })
 gulp.task('compile:background', function() {
 	return gulp.src('src/background.js')
 	  .pipe(webpack(require('./build/config/webpack.background.js')))
 	  .pipe(gulp.dest('build/dist'))
 })
-gulp.task('compile:content', function() {
-	return gulp.src('src/content.js')
-	  .pipe(webpack(require('./build/config/webpack.content.js')))
+gulp.task('compile:injects', function() {
+	return gulp.src('src/injects.js')
+	  .pipe(webpack(require('./build/config/webpack.injects.js')))
 	  .pipe(gulp.dest('build/dist'))
 })
 

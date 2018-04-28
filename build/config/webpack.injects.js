@@ -2,10 +2,10 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    './src/content.js'
+    './src/injects.js'
   ],
   output: {
-    filename: 'content.js'
+    filename: 'injects.js'
   },
   resolve: {
     alias: {
