@@ -5,6 +5,10 @@ class Module {
 
   }
 
+  run() {
+
+  }
+
   enable() {
 
   }
