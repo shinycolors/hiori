@@ -4,13 +4,9 @@ import modules from '@modules'
 class InjectsEntry extends HioriSDK.Entry {
   get NAME(){ return 'injects' }
 
-  constructor() {
-    super()
-  }
-
   start() {
     console.info('! injects !')
-    super.start(modules)
+    this.runModules(modules)
   }
 
 }

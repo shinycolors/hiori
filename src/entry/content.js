@@ -4,13 +4,9 @@ import modules from '@modules'
 class ContentdEntry extends HioriSDK.Entry {
   get NAME(){ return 'content' }
 
-  constructor() {
-    super()
-  }
-
   start() {
     console.info('! content script !')
-    super.start(modules)
+    this.runModules(modules)
 
     // On window load, inject the injection scripts into the webpage
     window.addEventListener('load', function(event) {
