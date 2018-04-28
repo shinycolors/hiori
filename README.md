@@ -39,7 +39,8 @@ During development, you may also run `npm run dev` to watch for file changes. It
 * **dragonjet** - developer
 * **victrock** - developer, translator
 * **MPThRee** - developer
-* **Rei** - developer
+* **ReikOme** - developer, translator
+* **Rei** - developer, translator
 * **Raemn** - cleaner, typesetter
 
 #### License
