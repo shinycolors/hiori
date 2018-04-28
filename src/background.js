@@ -1,6 +1,10 @@
 import modules from '@modules'
 
+console.info('! background script !')
+
 Object.keys(modules).forEach(moduleName => {
-  let module = new modules[moduleName].background
-  module.run()
+  if (modules[moduleName].background) {
+    let module = new modules[moduleName].background
+    module.run()
+  }
 })

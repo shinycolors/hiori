@@ -9,6 +9,7 @@ class Replacer extends HioriSDK.BackgroundScript {
   }
 
   run() {
+    console.info('! replacer !')
     let filter = { urls: [ '*://shinycolors.enza.fun/assets/*' ] }
     let opts = [ 'blocking' ]
     chrome.webRequest.onBeforeRequest.addListener(this.onBeforeRequest.bind(this), filter, opts)

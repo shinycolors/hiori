@@ -11,11 +11,21 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "<all_urls>"
+    "*://shinycolors.enza.fun/*"
   ],
   "background": {
     "scripts": [
       "background.js"
     ]
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [ "*://shinycolors.enza.fun/*" ],
+      "js": [ "content.js" ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "injects.js"
+  ]
 }
