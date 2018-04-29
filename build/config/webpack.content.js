@@ -2,10 +2,10 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    './src/entry/background.js'
+    './src/entry/content.js'
   ],
   output: {
-    filename: 'background.js'
+    filename: 'content.js'
   },
   resolve: {
     alias: {
@@ -29,10 +29,7 @@ module.exports = {
         test: /\.(png|jpg)$/,
         use: {
           loader: 'url-loader',
-        },
-        include: [
-          path.resolve(process.cwd(), 'src/modules/replacer')
-        ]
+        }
       }
     ]
   }
