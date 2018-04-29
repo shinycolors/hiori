@@ -1,6 +1,10 @@
 # hiori
 Chrome extension for [THE iDOLM@STER: Shiny Colors](http://bnent.jp/shiny-2pro/)
 
+[![Build Status](https://travis-ci.org/shinycolors/hiori.svg?branch=master)](https://travis-ci.org/shinycolors/hiori)
+![Github All Releases](https://img.shields.io/github/downloads/shinycolors/hiori/total.svg)
+![GitHub tag](https://img.shields.io/github/tag/shinycolors/hiori.svg)
+
 ## For players
 _**Hirori**, the software, is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. in no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software._
 
