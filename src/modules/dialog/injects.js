@@ -13,7 +13,7 @@ class Dialog extends HioriSDK.ContentScript {
   run() {
     console.info('! dialog !')
     this.loadTranslations()
-    setInterval(this.checkScene.bind(this), 100)
+    this.modifySceneManager()
   }
 
   loadTranslations() {
@@ -25,51 +25,70 @@ class Dialog extends HioriSDK.ContentScript {
     })
   }
 
-  checkScene() {
-    // Check if the scene has changed
-    if (!window.aoba) return
-    if (!window.aoba.sceneManager) return
-    if (!window.aoba.sceneManager.currentScene) return
-    if (this.lastScene === window.aoba.sceneManager.currentScene) return
-    this.lastScene = window.aoba.sceneManager.currentScene
-    console.log('sceneChanged', this.lastScene)
-    // Register enter listener to wait for resources
-    setTimeout(() => {
-      console.log('sceneEntered', this.lastScene)
-      this.detectDialog(this.lastScene)
-    }, 100)
+  modifySceneManager() {
+    let self = this
+    // Override the scene manager's replaceScene() function so we can detect when its fired
+    window.aoba.sceneManager._sc3_replaceScene = window.aoba.sceneManager.replaceScene
+    window.aoba.sceneManager.replaceScene = function(...replaceSceneArgs){
+      console.log('SCENE', replaceSceneArgs[0]);
+      // Override the addChild method based on the scene, each one has a different layer hierarchy
+      if (replaceSceneArgs[0].auditionSceneName == 'produceAudition') {
+        self.overrideAddChild(replaceSceneArgs[0].children[0])
+      } else {
+        self.overrideAddChild(replaceSceneArgs[0])
+      }
+      this._sc3_replaceScene(...replaceSceneArgs)
+    }
   }
 
-  detectDialog(scene) {
-    console.log('detecting dialog', scene);
-    // Check if scene has dialog
-    this.findDialogFromScene(scene)
-    scene.children.forEach(sceneChildrenL1 => {
-      this.findDialogFromScene(sceneChildrenL1)
-      sceneChildrenL1.children.forEach(sceneChildrenL2 => {
-        this.findDialogFromScene(sceneChildrenL2)
-      })
-    })
+  overrideAddChild(scene) {
+    let self = this
+    // Override the addChild() function so we know when a new one is spawned
+    scene._sc3_addChild = scene.addChild
+    scene.addChild = function(...addChildArgs){
+      self.findDialogFromScene(addChildArgs[0])
+      this._sc3_addChild(...addChildArgs)
+    }
   }
 
   findDialogFromScene(scene) {
+    // console.log('findDialogFromScene', Object.assign({}, scene), scene._eventTracks, scene._trackManager)
+    let self = this
     // Regular dialog
-    if (scene._eventTracks)
-      this.translate(scene._eventTracks)
+    if (scene._eventTracks) {
+      if (scene._eventTracks.length) {
+        // Event tracks has contents, translate it
+        this.translate(scene._eventTracks)
+      } else {
+        // Event tracks are not yet available, wait for its child to be added
+        self.overrideAddChild(scene)
+      }
+    }
     // Event dialogs
     if (scene._trackManager && scene._trackManager._tracks)
-      this.translate(scene._eventTracks)
+      this.translate(scene._trackManager._tracks)
   }
 
   translate(dialogList) {
-    console.log('translating', dialogList)
+    // console.log('dialog list', dialogList)
     // Translate the full dialog event
     return dialogList.map(dialog => {
-      if (dialog.speaker && this.translations[dialog.speaker])
-        dialog.speaker = this.translations[dialog.speaker]
-      if (dialog.text && this.translations[dialog.text])
-        dialog.text = this.translations[dialog.text]
-      return dialog
+      // Translate speakr
+      if (dialog.speaker) {
+        if (this.translations[dialog.speaker]) {
+          dialog.speaker = this.translations[dialog.speaker]
+        } else {
+          dialog.speaker = '+' + dialog.speaker + '+'
+        }
+      }
+      // Translate message
+      if (dialog.text) {
+        if (this.translations[dialog.text]) {
+          dialog.text = this.translations[dialog.text]
+        } else {
+          dialog.text = '+' + dialog.text + '+'
+        }
+      }
     })
   }
 
