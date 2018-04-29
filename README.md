@@ -15,7 +15,7 @@ As of writing, the game is young and we have only started looking at game data. 
   * Launch / Refresh the game
 
 
-* [~~Chrome WebStore~~]()
+* ~~Chrome WebStore~~
   * Free, one-click install
   * Will not be available until we get a stable release
 
@@ -50,7 +50,7 @@ During development, you may also run `npm run dev` to watch for file changes. It
 * **dragonjet**
 * **ReikOme**
 * **victrock**
-* **MPThRee**
+* **MPThLee**
 * **Karous**
 * **Dazahet**
 * **Rei**

@@ -3,6 +3,7 @@ const seq = require('gulp-sequence')
 const clean = require('gulp-clean')
 const wait = require('gulp-wait')
 const webpack = require('webpack-stream')
+const packageJson = require('package.json')
 
 // Clean
 gulp.task('clean', function() {
@@ -16,7 +17,12 @@ gulp.task('static', function(done){
 	seq(['static:manifest', 'static:img'])(done)
 })
 gulp.task('static:manifest', function() {
-	return gulp.src('src/manifest.json').pipe(gulp.dest('build/dist/'))
+	return gulp.src('src/manifest.json')
+		.pipe(jsonModify({ key: 'name', value: packageJson.name })
+		.pipe(jsonModify({ key: 'short_name', value: packageJson.short_name })
+		.pipe(jsonModify({ key: 'version', value: packageJson.version })
+		.pipe(jsonModify({ key: 'description', value: packageJson.description })
+		.pipe(gulp.dest('build/dist/'))
 })
 gulp.task('static:img', function() {
 	return gulp.src('src/img/**/*') .pipe(gulp.dest('build/dist/img'))
@@ -40,6 +46,13 @@ gulp.task('compile:injects', function() {
 	return gulp.src('src/entry/injects.js')
 	  .pipe(webpack(require('./build/config/webpack.injects.js')))
 	  .pipe(gulp.dest('build/dist'))
+})
+
+// Zip
+gulp.task('zip', function() {
+  return gulp.src('build/dist/*')
+    .pipe(zip('release.zip'))
+    .pipe(gulp.dest('build'))
 })
 
 // Watch

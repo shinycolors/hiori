@@ -1,7 +1,8 @@
 {
-  "name": "hiori",
-  "version": "1.0.0",
-  "description": "Shiny colors",
+  "name": "SC3",
+  "short_name": "SC3",
+  "version": "0.0.1",
+  "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
     "dev": "gulp dev",
@@ -26,8 +27,10 @@
     "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
+    "gulp-json-modify": "^1.0.2",
     "gulp-sequence": "^1.0.0",
     "gulp-wait": "0.0.2",
+    "gulp-zip": "^4.1.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-stream": "^4.0.3"
