@@ -7,16 +7,26 @@ _**Hirori**, the software, is provided "as is", without warranty of any kind, ex
 As of writing, the game is young and we have only started looking at game data. The mechanisms on this extension, might be cool and convenient, but we provide no warranty as to the safety of accounts that use it. Please use at your own risk. We do not know how tolerant the developers are about game client mods. Again, the user, the one installing the software, has the responsibility for his account, and/or related properties.
 
 #### Installation
-* [Chrome WebStore]()
-  * Free, one-click install! Use at your own risk :wink:
-* [~~Firefox Add-on~~]()
-  * For technical reasons, modules are currently not working on firefox.
-* [~~Game Client~~]()
-  * There are no plans for a desktop port. Just letting you know.
+* [**Download**](https://github.com/shinycolors/hiori/releases)
+  * Download the latest stable release from the Github Releases page
+  * Unzip the file into your preferred directory
+  * Go to `chrome://extensions` and enable developer mode
+  * Select "_LOAD UNPACKED_", and browse to the directory where you unzipped
+  * Launch / Refresh the game
+
+
+* [~~Chrome WebStore~~]()
+  * Free, one-click install
+  * Will not be available until we get a stable release
+
+
+* **Game Client** (_TBA_)
+  * A desktop client is released by a different team, but has partially same codebase
 
 #### Features
-* **Interface translations** via module, `replacer` (_working, partial_)
-* :construction: ~~Dialog translations via module dialog~~ (_not yet started_)
+* **Interface translations** via module, `replacer`
+* **Dialog translations** via module `dialog`
+* ~~Infinite loading screen detection~~
 * _Module-based framework_ allows many other features
 
 ## For developers
@@ -29,19 +39,21 @@ To setup a development environment for `hiori`
 #### Setup
 * `npm i`
 * `npm run build`
-* Enable developer mode on Chrome
-* On Chrome extensions page, load unpacked extension `build/dist`
+* Go to `chrome://extensions` and enable developer mode
+* Select "_LOAD UNPACKED_", and browse to `build/dist`
+* Launch / Refresh the game
 
 During development, you may also run `npm run dev` to watch for file changes. It will automatically build each time.
 
 
 ## Credits
-* **dragonjet** - developer
-* **victrock** - developer, translator
-* **MPThRee** - developer
-* **ReikOme** - developer, translator
-* **Rei** - developer, translator
-* **Raemn** - cleaner, typesetter
+* **dragonjet**
+* **ReikOme**
+* **victrock**
+* **MPThRee**
+* **Karous**
+* **Dazahet**
+* **Rei**
 
 #### License
 See [LICENSE file](https://github.com/shinycolors/hiori/blob/develop/LICENSE)
