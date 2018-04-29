@@ -52,7 +52,7 @@ gulp.task('compile:injects', function() {
 
 // Zip
 gulp.task('zip', function() {
-  return gulp.src('build/dist/*')
+  return gulp.src('build/dist/**/*')
     .pipe(zip('release.zip'))
     .pipe(gulp.dest('build'))
 })
