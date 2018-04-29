@@ -2,8 +2,10 @@ const gulp = require('gulp')
 const seq = require('gulp-sequence')
 const clean = require('gulp-clean')
 const wait = require('gulp-wait')
+const zip = require('gulp-zip')
+const jsonModify = require('gulp-json-modify')
 const webpack = require('webpack-stream')
-const packageJson = require('package.json')
+const packageJson = require('./package.json')
 
 // Clean
 gulp.task('clean', function() {
@@ -18,11 +20,11 @@ gulp.task('static', function(done){
 })
 gulp.task('static:manifest', function() {
 	return gulp.src('src/manifest.json')
-		.pipe(jsonModify({ key: 'name', value: packageJson.name })
-		.pipe(jsonModify({ key: 'short_name', value: packageJson.short_name })
-		.pipe(jsonModify({ key: 'version', value: packageJson.version })
-		.pipe(jsonModify({ key: 'description', value: packageJson.description })
-		.pipe(gulp.dest('build/dist/'))
+		.pipe(jsonModify({ key: 'name', value: packageJson.name }))
+		.pipe(jsonModify({ key: 'short_name', value: packageJson.short_name }))
+		.pipe(jsonModify({ key: 'version', value: packageJson.version }))
+		.pipe(jsonModify({ key: 'description', value: packageJson.description }))
+		.pipe(gulp.dest('build/dist'))
 })
 gulp.task('static:img', function() {
 	return gulp.src('src/img/**/*') .pipe(gulp.dest('build/dist/img'))
