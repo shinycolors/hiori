@@ -30,7 +30,6 @@ class Dialog extends HioriSDK.ContentScript {
     // Override the scene manager's replaceScene() function so we can detect when its fired
     window.aoba.sceneManager._sc3_replaceScene = window.aoba.sceneManager.replaceScene
     window.aoba.sceneManager.replaceScene = function(...replaceSceneArgs){
-      console.log('SCENE', replaceSceneArgs[0]);
       // Override the addChild method based on the scene, each one has a different layer hierarchy
       if (replaceSceneArgs[0].auditionSceneName == 'produceAudition') {
         self.overrideAddChild(replaceSceneArgs[0].children[0])
@@ -52,7 +51,6 @@ class Dialog extends HioriSDK.ContentScript {
   }
 
   findDialogFromScene(scene) {
-    // console.log('findDialogFromScene', Object.assign({}, scene), scene._eventTracks, scene._trackManager)
     let self = this
     // Regular dialog
     if (scene._eventTracks) {
@@ -70,7 +68,6 @@ class Dialog extends HioriSDK.ContentScript {
   }
 
   translate(dialogList) {
-    // console.log('dialog list', dialogList)
     // Translate the full dialog event
     return dialogList.map(dialog => {
       // Translate speakr
@@ -78,7 +75,8 @@ class Dialog extends HioriSDK.ContentScript {
         if (this.translations[dialog.speaker]) {
           dialog.speaker = this.translations[dialog.speaker]
         } else {
-          dialog.speaker = '+' + dialog.speaker + '+'
+          console.log(dialog.speaker)
+          // dialog.speaker = '+' + dialog.speaker + '+'
         }
       }
       // Translate message
@@ -86,7 +84,8 @@ class Dialog extends HioriSDK.ContentScript {
         if (this.translations[dialog.text]) {
           dialog.text = this.translations[dialog.text]
         } else {
-          dialog.text = '+' + dialog.text + '+'
+          console.log(dialog.text)
+          // dialog.text = '+' + dialog.text + '+'
         }
       }
     })
