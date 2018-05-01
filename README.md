@@ -58,6 +58,7 @@ During development, you may also run `npm run dev` to watch for file changes. It
 * **Karous**
 * **Dazahet**
 * **Rei**
+* **Raemn**
 
 #### License
 See [LICENSE file](https://github.com/shinycolors/hiori/blob/develop/LICENSE)

@@ -1,13 +1,14 @@
 {
   "name": "SC3",
   "short_name": "SC3",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build",
-    "dist": "gulp dist"
+    "dist": "gulp dist",
+    "check": "gulp check:img"
   },
   "repository": {
     "type": "git",
