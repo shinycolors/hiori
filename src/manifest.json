@@ -9,6 +9,7 @@
     "webRequestBlocking",
     "*://shinycolors.enza.fun/*"
   ],
+  "options_page": "html/options.html",
   "background": {
     "scripts": [
       "background.js"

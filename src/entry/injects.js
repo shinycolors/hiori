@@ -1,11 +1,10 @@
 import HioriSDK from '@sdk'
-import modules from '@modules'
+import modules from '@modules/injects.js'
 
 class InjectsEntry extends HioriSDK.Entry {
-  get NAME(){ return 'injects' }
 
   start() {
-    console.info('! injects !')
+    // Run imported modules
     this.runModules(modules)
   }
 
