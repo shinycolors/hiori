@@ -18,7 +18,7 @@ gulp.task('clean', function() {
 
 // Static files
 gulp.task('static', function(done){
-	seq(['static:manifest', 'static:img'])(done)
+	seq(['static:manifest', 'static:html', 'static:img'])(done)
 })
 gulp.task('static:manifest', function() {
 	return gulp.src('src/manifest.json')
@@ -28,13 +28,16 @@ gulp.task('static:manifest', function() {
 		.pipe(jsonModify({ key: 'description', value: packageJson.description }))
 		.pipe(gulp.dest('build/dist'))
 })
+gulp.task('static:html', function() {
+	return gulp.src('src/html/**/*') .pipe(gulp.dest('build/dist/html'))
+})
 gulp.task('static:img', function() {
 	return gulp.src('src/img/**/*') .pipe(gulp.dest('build/dist/img'))
 })
 
 // Webpack
 gulp.task('compile', function(done){
-	seq(['compile:background', 'compile:content', 'compile:injects'])(done)
+	seq(['compile:background', 'compile:content', 'compile:injects', 'compile:options'])(done)
 })
 gulp.task('compile:background', function() {
 	return gulp.src('src/entry/background.js')
@@ -49,6 +52,11 @@ gulp.task('compile:content', function() {
 gulp.task('compile:injects', function() {
 	return gulp.src('src/entry/injects.js')
 	  .pipe(webpack(require('./build/config/webpack.injects.js')))
+	  .pipe(gulp.dest('build/dist'))
+})
+gulp.task('compile:options', function() {
+	return gulp.src('src/entry/options.js')
+	  .pipe(webpack(require('./build/config/webpack.options.js')))
 	  .pipe(gulp.dest('build/dist'))
 })
 
