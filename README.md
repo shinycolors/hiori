@@ -59,6 +59,12 @@ During development, you may also run `npm run dev` to watch for file changes. It
 * **Dazahet**
 * **Rei**
 * **Raemn**
+* **Skybur**
+* **rikineko**
+* **Matsuri Kagami**
+* **senior9324**
+* **AzusaMera**
+* _and everyone in the #game_data channel in the discord server_
 
 #### License
 See [LICENSE file](https://github.com/shinycolors/hiori/blob/develop/LICENSE)
