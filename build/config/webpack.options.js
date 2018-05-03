@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const packageJson = require('../../package.json')
 
 module.exports = {
@@ -37,5 +38,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'html/options.html'
+    })
+  ]
 }

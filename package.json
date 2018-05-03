@@ -34,6 +34,7 @@
     "gulp-sequence": "^1.0.0",
     "gulp-wait": "0.0.2",
     "gulp-zip": "^4.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-stream": "^4.0.3"
