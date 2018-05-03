@@ -8,10 +8,11 @@ const zip = require('gulp-zip')
 const jsonModify = require('gulp-json-modify')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
+
+const env = require('./build/config/environment.js')
 const packageJson = require('./package.json')
 
-const BROWSER = process.env.BROWSER || 'chrome'
-const TARGET_DIR = path.join('build/dist', BROWSER)
+const TARGET_DIR = path.join('build/dist', env.browser)
 
 // Clean
 gulp.task('clean', function() {
@@ -45,29 +46,29 @@ gulp.task('compile', function(done){
 })
 gulp.task('compile:background', function() {
 	return gulp.src('src/entry/background.js')
-	  .pipe(webpackStream(require('./build/config/webpack.background.js'), webpack))
+	  .pipe(webpackStream(require('./build/config/webpack/background.js'), webpack))
 	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:content', function() {
 	return gulp.src('src/entry/content.js')
-	  .pipe(webpackStream(require('./build/config/webpack.content.js'), webpack))
+	  .pipe(webpackStream(require('./build/config/webpack/content.js'), webpack))
 	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:injects', function() {
 	return gulp.src('src/entry/injects.js')
-	  .pipe(webpackStream(require('./build/config/webpack.injects.js'), webpack))
+	  .pipe(webpackStream(require('./build/config/webpack/injects.js'), webpack))
 	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:options', function() {
 	return gulp.src('src/entry/options.js')
-	  .pipe(webpackStream(require('./build/config/webpack.options.js'), webpack))
+	  .pipe(webpackStream(require('./build/config/webpack/options.js'), webpack))
 	  .pipe(gulp.dest(TARGET_DIR))
 })
 
 // Zip
 gulp.task('zip', function() {
   return gulp.src(TARGET_DIR + '/**/*')
-    .pipe(zip(BROWSER + '.zip'))
+    .pipe(zip(env.browser + '.zip'))
     .pipe(gulp.dest(path.join(TARGET_DIR, '../')))
 })
 

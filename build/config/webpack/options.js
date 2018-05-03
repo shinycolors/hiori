@@ -1,14 +1,15 @@
 const path = require('path')
 const webpack = require('webpack')
-const appEnv = require('../app-env')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const env = require('../environment')
 
 module.exports = {
-  mode: process.env.MODE || 'production',
+  mode: env.name,
   entry: [
-    './src/entry/injects.js'
+    './src/entry/options.js'
   ],
   output: {
-    filename: 'injects.js'
+    filename: 'options.js'
   },
   resolve: {
     alias: {
@@ -31,14 +32,20 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         use: {
-          loader: 'url-loader',
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]'
+          }
         }
       }
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      ENV: JSON.stringify(appEnv)
+      ENV: JSON.stringify(env.appConfig)
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'html/options.html'
     })
   ]
 }
