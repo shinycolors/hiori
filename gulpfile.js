@@ -6,7 +6,8 @@ const clean = require('gulp-clean')
 const wait = require('gulp-wait')
 const zip = require('gulp-zip')
 const jsonModify = require('gulp-json-modify')
-const webpack = require('webpack-stream')
+const webpack = require('webpack')
+const webpackStream = require('webpack-stream')
 const packageJson = require('./package.json')
 
 // Clean
@@ -41,22 +42,22 @@ gulp.task('compile', function(done){
 })
 gulp.task('compile:background', function() {
 	return gulp.src('src/entry/background.js')
-	  .pipe(webpack(require('./build/config/webpack.background.js')))
+	  .pipe(webpackStream(require('./build/config/webpack.background.js'), webpack))
 	  .pipe(gulp.dest('build/dist'))
 })
 gulp.task('compile:content', function() {
 	return gulp.src('src/entry/content.js')
-	  .pipe(webpack(require('./build/config/webpack.content.js')))
+	  .pipe(webpackStream(require('./build/config/webpack.content.js'), webpack))
 	  .pipe(gulp.dest('build/dist'))
 })
 gulp.task('compile:injects', function() {
 	return gulp.src('src/entry/injects.js')
-	  .pipe(webpack(require('./build/config/webpack.injects.js')))
+	  .pipe(webpackStream(require('./build/config/webpack.injects.js'), webpack))
 	  .pipe(gulp.dest('build/dist'))
 })
 gulp.task('compile:options', function() {
 	return gulp.src('src/entry/options.js')
-	  .pipe(webpack(require('./build/config/webpack.options.js')))
+	  .pipe(webpackStream(require('./build/config/webpack.options.js'), webpack))
 	  .pipe(gulp.dest('build/dist'))
 })
 
