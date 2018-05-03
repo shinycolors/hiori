@@ -1,5 +1,9 @@
 class Entry {
 
+  constructor() {
+    this.env = ENV
+  }
+
   runModules(modules) {
     Object.keys(modules).forEach(moduleName => {
       if (modules[moduleName]) {

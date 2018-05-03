@@ -1,5 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const appEnv = require('../app-env')
 const packageJson = require('../../package.json')
 
 module.exports = {
@@ -40,6 +42,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(appEnv)
+    }),
     new HtmlWebpackPlugin({
       filename: 'html/options.html'
     })

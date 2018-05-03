@@ -1,4 +1,6 @@
 const path = require('path')
+const webpack = require('webpack')
+const appEnv = require('../app-env')
 
 module.exports = {
   mode: process.env.MODE || 'production',
@@ -33,5 +35,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(appEnv)
+    })
+  ]
 }
