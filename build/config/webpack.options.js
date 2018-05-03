@@ -2,6 +2,7 @@ const path = require('path')
 const packageJson = require('../../package.json')
 
 module.exports = {
+  mode: process.env.MODE || 'production',
   entry: [
     './src/entry/options.js'
   ],

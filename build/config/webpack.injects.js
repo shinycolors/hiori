@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  mode: process.env.MODE || 'production',
   entry: [
     './src/entry/injects.js'
   ],

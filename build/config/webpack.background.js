@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  mode: process.env.MODE || 'production',
   entry: [
     './src/entry/background.js'
   ],
@@ -35,5 +36,8 @@ module.exports = {
         ]
       }
     ]
+  },
+  performance: {
+    hints: false
   }
 }
