@@ -5,9 +5,10 @@
   "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp dev",
-    "build": "gulp build",
-    "dist": "gulp dist",
+    "dev": "cross-env MODE=development BROWSER=chrome gulp dev",
+    "build:ff": "cross-env BROWSER=firefox gulp build",
+    "build:cr": "cross-env BROWSER=chrome gulp build",
+    "dist": "cross-env MODE=production gulp dist",
     "check": "gulp check:img"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.4",
     "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",

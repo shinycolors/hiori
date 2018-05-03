@@ -59,8 +59,4 @@ typings/
 
 # Custom
 /build/dist
-/build/release/
-/build/release.zip
-/build/index.html
-/src/modules/replacer/ui/jp
 /dev

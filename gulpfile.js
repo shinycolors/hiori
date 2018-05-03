@@ -10,9 +10,12 @@ const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const packageJson = require('./package.json')
 
+const BROWSER = process.env.BROWSER || 'chrome'
+const TARGET_DIR = path.join('build/dist', BROWSER)
+
 // Clean
 gulp.task('clean', function() {
-	return gulp.src('build/dist/**/*', {read: false})
+	return gulp.src(TARGET_DIR + '/**/*', {read: false})
 		.pipe(wait(100))
 		.pipe(clean({force: true}))
 })
@@ -27,13 +30,13 @@ gulp.task('static:manifest', function() {
 		.pipe(jsonModify({ key: 'short_name', value: packageJson.short_name }))
 		.pipe(jsonModify({ key: 'version', value: packageJson.version }))
 		.pipe(jsonModify({ key: 'description', value: packageJson.description }))
-		.pipe(gulp.dest('build/dist'))
+		.pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('static:html', function() {
-	return gulp.src('src/html/**/*') .pipe(gulp.dest('build/dist/html'))
+	return gulp.src('src/html/**/*') .pipe(gulp.dest(path.join(TARGET_DIR, 'html')))
 })
 gulp.task('static:img', function() {
-	return gulp.src('src/img/**/*') .pipe(gulp.dest('build/dist/img'))
+	return gulp.src('src/img/**/*') .pipe(gulp.dest(path.join(TARGET_DIR, 'img')))
 })
 
 // Webpack
@@ -43,29 +46,29 @@ gulp.task('compile', function(done){
 gulp.task('compile:background', function() {
 	return gulp.src('src/entry/background.js')
 	  .pipe(webpackStream(require('./build/config/webpack.background.js'), webpack))
-	  .pipe(gulp.dest('build/dist'))
+	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:content', function() {
 	return gulp.src('src/entry/content.js')
 	  .pipe(webpackStream(require('./build/config/webpack.content.js'), webpack))
-	  .pipe(gulp.dest('build/dist'))
+	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:injects', function() {
 	return gulp.src('src/entry/injects.js')
 	  .pipe(webpackStream(require('./build/config/webpack.injects.js'), webpack))
-	  .pipe(gulp.dest('build/dist'))
+	  .pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('compile:options', function() {
 	return gulp.src('src/entry/options.js')
 	  .pipe(webpackStream(require('./build/config/webpack.options.js'), webpack))
-	  .pipe(gulp.dest('build/dist'))
+	  .pipe(gulp.dest(TARGET_DIR))
 })
 
 // Zip
 gulp.task('zip', function() {
-  return gulp.src('build/dist/**/*')
-    .pipe(zip('release.zip'))
-    .pipe(gulp.dest('build'))
+  return gulp.src(TARGET_DIR + '/**/*')
+    .pipe(zip(BROWSER + '.zip'))
+    .pipe(gulp.dest(path.join(TARGET_DIR, '../')))
 })
 
 // Watch
