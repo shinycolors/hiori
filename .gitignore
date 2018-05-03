@@ -58,5 +58,6 @@ typings/
 .env
 
 # Custom
-/build/dist
+/build/dist/*
+!/build/dist/.gitkeep
 /dev
