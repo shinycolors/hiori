@@ -8,7 +8,10 @@
     "dev": "cross-env NODE_ENV=development gulp dev",
     "build:ff": "cross-env BROWSER=firefox gulp build",
     "build:cr": "cross-env BROWSER=chrome gulp build",
-    "dist": "gulp dist",
+    "build": "concurrently \"npm run build:ff\" \"npm run build:cr\"",
+    "dist:ff": "cross-env BROWSER=firefox gulp dist",
+    "dist:cr": "cross-env BROWSER=chrome gulp dist",
+    "dist": "concurrently \"npm run dist:ff\" \"npm run dist:cr\"",
     "check": "gulp check:img"
   },
   "repository": {
@@ -41,6 +44,7 @@
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
+    "concurrently": "^3.5.1",
     "dot-object": "^1.7.0"
   }
 }
