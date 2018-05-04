@@ -1,6 +1,9 @@
 const path = require('path')
+const webpack = require('webpack')
+const env = require('../environment')
 
 module.exports = {
+  mode: env.name,
   entry: [
     './src/entry/injects.js'
   ],
@@ -32,5 +35,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(env.appConfig)
+    }),
+  ]
 }

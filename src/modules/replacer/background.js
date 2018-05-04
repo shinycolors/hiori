@@ -1,29 +1,28 @@
 import HioriSDK from '@sdk'
 import images from './images'
+import logicChrome from './browsers/chrome'
+import logicFirefox from './browsers/firefox'
 
 class Replacer extends HioriSDK.BackgroundScript {
 
-  constructor() {
+  constructor(env) {
     super()
+    this.browser = env.browser
     this.lang = 'en'
   }
 
   run() {
-    console.info('! replacer !')
-    let filter = { urls: [ '*://shinycolors.enza.fun/assets/*' ] }
-    let opts = [ 'blocking' ]
-    chrome.webRequest.onBeforeRequest.addListener(this.onBeforeRequest.bind(this), filter, opts)
-  }
+    if (this.browser == HioriSDK.Browser.CHROME) {
+      console.info('! replacer-chrome !')
+      logicChrome(images[this.lang])
 
-  onBeforeRequest(details) {
-    let replacementImage = this.getReplacementImage(details.url)
-    if (!replacementImage) return null
-    return { redirectUrl: replacementImage }
-  }
+    } else if (this.browser == HioriSDK.Browser.FIREFOX) {
+      console.info('! replacer-firefox !')
+      logicFirefox(images[this.lang])
 
-  getReplacementImage(url) {
-    let assetHash = url.split('/').pop()
-    return images[this.lang][assetHash] || null
+    } else {
+      console.info('^ replacer cannot run on', this.browser,'^')
+    }
   }
 
 }

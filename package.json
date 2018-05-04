@@ -5,9 +5,13 @@
   "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp dev",
-    "build": "gulp build",
-    "dist": "gulp dist",
+    "dev": "cross-env NODE_ENV=development gulp dev",
+    "build:ff": "cross-env BROWSER=firefox gulp build",
+    "build:cr": "cross-env BROWSER=chrome gulp build",
+    "build": "concurrently \"npm run build:ff\" \"npm run build:cr\"",
+    "dist:ff": "cross-env BROWSER=firefox gulp dist",
+    "dist:cr": "cross-env BROWSER=chrome gulp dist",
+    "dist": "concurrently \"npm run dist:ff\" \"npm run dist:cr\"",
     "check": "gulp check:img"
   },
   "repository": {
@@ -25,6 +29,8 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.4",
+    "deep-extend": "^0.5.1",
     "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
@@ -32,11 +38,13 @@
     "gulp-sequence": "^1.0.0",
     "gulp-wait": "0.0.2",
     "gulp-zip": "^4.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
+    "concurrently": "^3.5.1",
     "dot-object": "^1.7.0"
   }
 }
