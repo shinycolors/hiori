@@ -16,14 +16,16 @@ before_deploy:
   - git config --global user.name "Travis CI"
   - git tag $APP_VERSION -a -m "Automated GitHub release for $APP_VERSION"
   - git push -q https://dragonjet:$GITHUB_API_KEY@github.com/shinycolors/hiori --tags
-  - mv build/release.zip build/$APP_CODE-$APP_VERSION.zip
+  - mv build/chrome.zip build/$APP_CODE-$APP_VERSION-chrome.zip
+  - mv build/firefox.zip build/$APP_CODE-$APP_VERSION-firefox.zip
 
 deploy:
   provider: releases
   skip_cleanup: true
   api_key: $GITHUB_API_KEY
   file:
-    - build/$APP_CODE-$APP_VERSION.zip
+    - build/$APP_CODE-$APP_VERSION-chrome.zip
+    - build/$APP_CODE-$APP_VERSION-firefox.zip
   on:
     tags: false
     branch: master

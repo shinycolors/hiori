@@ -1,7 +1,10 @@
 const path = require('path')
-const packageJson = require('../../package.json')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const env = require('../environment')
 
 module.exports = {
+  mode: env.name,
   entry: [
     './src/entry/options.js'
   ],
@@ -36,5 +39,13 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(env.appConfig)
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'html/options.html'
+    })
+  ]
 }
