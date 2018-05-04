@@ -7,7 +7,7 @@ class Entry {
   runModules(modules) {
     Object.keys(modules).forEach(moduleName => {
       if (modules[moduleName]) {
-        let module = new modules[moduleName]
+        let module = new modules[moduleName](this.env)
         module.run()
       }
     })
