@@ -1,11 +1,10 @@
 import HioriSDK from '@sdk'
-import modules from '@modules'
+import modules from '@modules/background.js'
 
 class BackgroundEntry extends HioriSDK.Entry {
-  get NAME(){ return 'background' }
 
   start() {
-    console.info('! background script !')
+    // Run imported modules
     this.runModules(modules)
   }
 

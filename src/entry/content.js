@@ -1,16 +1,14 @@
 import HioriSDK from '@sdk'
-import modules from '@modules'
+import modules from '@modules/content.js'
 
-class ContentdEntry extends HioriSDK.Entry {
-  get NAME(){ return 'content' }
+class ContentEntry extends HioriSDK.Entry {
 
   start() {
-    console.info('! content script !')
+    // Run imported modules
     this.runModules(modules)
 
     // On window load, inject the injection scripts into the webpage
     window.addEventListener('load', function(event) {
-      console.info('! content script trying to inject !')
       let injects = document.createElement('script')
       injects.src = chrome.extension.getURL('injects.js')
       document.body.appendChild(injects)
@@ -19,5 +17,5 @@ class ContentdEntry extends HioriSDK.Entry {
 
 }
 
-let main = new ContentdEntry()
+let main = new ContentEntry()
 main.start()

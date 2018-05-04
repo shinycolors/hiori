@@ -69,7 +69,18 @@ class Dialog extends HioriSDK.ContentScript {
 
   translate(dialogList) {
     // Show raw texts in JSON form for data extraction
-    let showRaws = { messages: dialogList.filter(v=>!!v.text).map(dialog => { return { jp: dialog.text, tl: '' } }) }
+    let showRaws = {
+      // notes: [
+      //   'Only translate from "jp" -> "tl". Untranslated character names are to be added separately.',
+      // ],
+      messages: dialogList.filter(v=>!!v.text).map(dialog => {
+        return {
+          ch: this.translations[dialog.speaker] || dialog.speaker,
+          jp: dialog.text,
+          tl: ''
+        }
+      })
+    }
     console.log(JSON.stringify(showRaws))
 
     // Translate the full dialog event
