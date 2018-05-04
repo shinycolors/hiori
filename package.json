@@ -1,7 +1,7 @@
 {
   "name": "SC3",
   "short_name": "SC3",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
