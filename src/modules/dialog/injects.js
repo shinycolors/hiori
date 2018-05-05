@@ -81,7 +81,37 @@ class Dialog extends HioriSDK.ContentScript {
         }
       })
     }
-    console.log(JSON.stringify(showRaws))
+
+    // Create a blob containing the string-ified json as a UTF-8 json file and make it accesible as url
+    let file = new Blob([JSON.stringify(showRaws, null, '\t')], {type: "application/json;charset=UTF-8"})
+    let url = URL.createObjectURL(file)
+
+    // Create link to the URL resource and set it so it can be opened in a new window and downloaded
+    let link = document.createElement("a")
+
+    link.href = url
+    link.download = "dialog_export.json"
+    link.target = "_blank"
+
+    // Create a keyboard shortcut handler to automate the click and download
+    function kbDownHandler(e)
+    {
+      // Ctrl + Shift + D
+      if ( e.ctrlKey == true && e.shiftKey == true && e.which == 68 )
+      {
+        e.preventDefault()
+        link.click()
+        
+        // Remove the event so it doesn't fire the download twice 
+        // if key keeps pressed for a significant amout of time
+        document.removeEventListener("keydown", kbDownHandler)
+      }
+    }
+
+    // Listen to the keyboard event
+    document.addEventListener("keydown", kbDownHandler)
+
+    console.log("\nTRANSLATORS/CONTRIBUTORS:\nPress Ctrl + Shift + D while focussing the game window to export the dialog file. Thanks :).\n\n")
 
     // Translate the full dialog event
     return dialogList.map(dialog => {
