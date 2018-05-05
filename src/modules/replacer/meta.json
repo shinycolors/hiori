@@ -1,0 +1,12 @@
+{
+  "name": "replacer",
+  "description": "Replaces interface elements into translated versions",
+  "options": [
+    {
+      "id": "hello",
+      "title": "World",
+      "desc": "sample options for replacer",
+      "type": "text"
+    }
+  ]
+}

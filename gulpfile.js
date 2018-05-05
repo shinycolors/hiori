@@ -10,6 +10,7 @@ const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 
 const env = require('./build/config/environment.js')
+console.log('env', env);
 const packageJson = require('./package.json')
 
 const TARGET_DIR = path.join('build/dist', env.browser)

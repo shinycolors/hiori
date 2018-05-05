@@ -1,0 +1,12 @@
+{
+  "name": "dialog",
+  "description": "Translates dialog directly inside the game",
+  "options": [
+    {
+      "id": "foo",
+      "title": "bar",
+      "desc": "sample options for dialog",
+      "type": "text"
+    }
+  ]
+}
