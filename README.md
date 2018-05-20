@@ -52,6 +52,7 @@ During development, you may also run `npm run dev` to watch for file changes. It
 
 ## Credits
 * **dragonjet**
+* **EonIsAnOtaku**
 * **ReikOme**
 * **victrock**
 * **MPThLee**
