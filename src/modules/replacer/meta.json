@@ -4,9 +4,10 @@
   "options": [
     {
       "id": "hello",
-      "title": "World",
+      "title": "desc hello",
       "desc": "sample options for replacer",
-      "type": "text"
+      "type": "text",
+      "default": "world"
     }
   ]
 }

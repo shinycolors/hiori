@@ -6,7 +6,7 @@
       <div class="module-option" v-for="option in meta.options">
         <!-- DROPDOWN -->
         <div v-if="option.type === 'dropdown'">
-          <select :data-module="meta.name" :data-optid="option.id" v-on:change="dropdownChange">
+          <select :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="dropdownChange">
             <option :value="choice.value" v-for="choice in option.data">{{choice.name}}</option>
           </select>
         </div>
@@ -16,7 +16,7 @@
         </div>
         <!-- TEXT -->
         <div v-else>
-          <input type="text" :data-module="meta.name" :data-optid="option.id" v-on:change="textChange">
+          {{option.id}} <input type="text" :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="textChange">
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@ export default {
   props: [ 'meta' ],
   data() {
     return {
-
+      config: {}
     }
   },
   methods: {
@@ -37,23 +37,51 @@ export default {
       let newValue = evt.target.value
       let moduleName = evt.target.getAttribute('data-module')
       let optionId = evt.target.getAttribute('data-optid')
-      console.log('dropdownChange', moduleName, optionId, newValue)
       this.setConfigValue(moduleName, optionId, newValue)
     },
     textChange: function(evt){
       let newValue = evt.target.value
       let moduleName = evt.target.getAttribute('data-module')
       let optionId = evt.target.getAttribute('data-optid')
-      console.log('dropdownChange', moduleName, optionId, newValue)
       this.setConfigValue(moduleName, optionId, newValue)
     },
     setConfigValue: function(moduleName, optionId, value) {
-      if (!localStorage.getItem('config')) localStorage.setItem('config', '{}')
+      this.loadConfig()
+      this.config[optionId] = value
+
+
       let config = JSON.parse(localStorage.getItem('config'))
       if (!config[moduleName]) config[moduleName] = {}
       config[moduleName][optionId] = value
       localStorage.setItem('config', JSON.stringify(config))
+    },
+    makeConfig: function(){
+      // Config exists in local storage
+      if (!localStorage.getItem('config')) localStorage.setItem('config', '{}')
+      let fullConfig = JSON.parse(localStorage.getItem('config'))
+      // Module exists in config contents
+      if (!fullConfig[this.meta.name]) {
+        fullConfig[this.meta.name] = {}
+        localStorage.setItem('config', JSON.stringify(fullConfig))
+      }
+    },
+    saveConfig: function(){
+
+    },
+    loadConfig: function(){
+      this.makeConfig()
+      // Load defaults
+      this.meta.options.forEach(option => {
+        this.config[option.id] = option.default || null
+      })
+      // Load saved user preferences
+      let fullConfig = JSON.parse(localStorage.getItem('config'))
+      this.config = Object.assign(this.config, fullConfig[this.meta.name])
     }
+  },
+  mounted() {
+    this.loadConfig()
+    this.$forceUpdate()
   }
 }
 </script>

@@ -4,9 +4,10 @@
   "options": [
     {
       "id": "foo",
-      "title": "bar",
+      "title": "desc foo",
       "desc": "sample options for dialog",
-      "type": "text"
+      "type": "text",
+      "default": "bar"
     }
   ]
 }
