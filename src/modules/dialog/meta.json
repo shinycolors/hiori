@@ -3,11 +3,11 @@
   "description": "Translates dialog directly inside the game",
   "options": [
     {
-      "id": "foo",
-      "title": "desc foo",
-      "desc": "sample options for dialog",
-      "type": "text",
-      "default": "bar"
+      "id": "enabled",
+      "title": "Enabled",
+      "desc": "Toggle this feature",
+      "type": "check",
+      "default": true
     }
   ]
 }

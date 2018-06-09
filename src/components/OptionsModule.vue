@@ -6,6 +6,7 @@
       <div class="module-option" v-for="option in meta.options">
         <!-- DROPDOWN -->
         <div v-if="option.type === 'dropdown'">
+          {{option.title}}
           <select :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="dropdownChange">
             <option :value="choice.value" v-for="choice in option.data">{{choice.name}}</option>
           </select>
@@ -14,9 +15,13 @@
         <div v-else-if="option.type === 'radio'">
 
         </div>
+        <!-- CHECK -->
+        <div v-else-if="option.type === 'check'">
+          {{option.title}} <input type="checkbox" :data-module="meta.name" :data-optid="option.id" v-on:change="checkChange" :checked="config[option.id] ? 'checked' : ''">
+        </div>
         <!-- TEXT -->
         <div v-else>
-          {{option.id}} <input type="text" :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="textChange">
+          {{option.title}} <input type="text" :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="textChange">
         </div>
       </div>
     </div>
@@ -41,6 +46,12 @@ export default {
     },
     textChange: function(evt){
       let newValue = evt.target.value
+      let moduleName = evt.target.getAttribute('data-module')
+      let optionId = evt.target.getAttribute('data-optid')
+      this.setConfigValue(moduleName, optionId, newValue)
+    },
+    checkChange: function(evt){
+      let newValue = evt.target.checked
       let moduleName = evt.target.getAttribute('data-module')
       let optionId = evt.target.getAttribute('data-optid')
       this.setConfigValue(moduleName, optionId, newValue)

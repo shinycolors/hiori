@@ -3,11 +3,11 @@
   "description": "Replaces interface elements into translated versions",
   "options": [
     {
-      "id": "hello",
-      "title": "desc hello",
-      "desc": "sample options for replacer",
-      "type": "text",
-      "default": "world"
+      "id": "enabled",
+      "title": "Enabled",
+      "desc": "Toggle this feature",
+      "type": "check",
+      "default": true
     }
   ]
 }
