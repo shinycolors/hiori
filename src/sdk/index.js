@@ -4,6 +4,7 @@ import Browser from './Browser'
 import BackgroundScript from './BackgroundScript'
 import ContentScript from './ContentScript'
 import InjectScript from './InjectScript'
+import Options from './Options'
 
 export default {
   Entry,
@@ -12,4 +13,5 @@ export default {
   BackgroundScript,
   ContentScript,
   InjectScript,
+  Options,
 }

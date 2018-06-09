@@ -7,7 +7,7 @@
         <!-- DROPDOWN -->
         <div v-if="option.type === 'dropdown'">
           {{option.title}}
-          <select :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="dropdownChange">
+          <select :data-module="meta.name" :data-optid="option.id" :data-notice="option.notice" :value="config.get(option.id)" v-on:change="dropdownChange">
             <option :value="choice.value" v-for="choice in option.data">{{choice.name}}</option>
           </select>
         </div>
@@ -17,81 +17,45 @@
         </div>
         <!-- CHECK -->
         <div v-else-if="option.type === 'check'">
-          {{option.title}} <input type="checkbox" :data-module="meta.name" :data-optid="option.id" v-on:change="checkChange" :checked="config[option.id] ? 'checked' : ''">
+          {{option.title}} <input type="checkbox" :data-module="meta.name" :data-optid="option.id" :data-notice="option.notice" v-on:change="checkChange" :checked="config.get(option.id) ? 'checked' : ''">
         </div>
         <!-- TEXT -->
         <div v-else>
-          {{option.title}} <input type="text" :data-module="meta.name" :data-optid="option.id" :value="config[option.id]" v-on:change="textChange">
+          {{option.title}} <input type="text" :data-module="meta.name" :data-optid="option.id" :data-notice="option.notice" :value="config.get(option.id)" v-on:change="textChange">
         </div>
       </div>
     </div>
+    <div class="module-notice" v-show="notice">{{notice}}</div>
 	</div>
 </template>
 
 <script>
-
+import HioriSDK from '@sdk'
 export default {
   props: [ 'meta' ],
   data() {
     return {
-      config: {}
+      config: new HioriSDK.Options(this.meta.name),
+      notice: ''
     }
   },
   methods: {
     dropdownChange: function(evt){
-      let newValue = evt.target.value
-      let moduleName = evt.target.getAttribute('data-module')
-      let optionId = evt.target.getAttribute('data-optid')
-      this.setConfigValue(moduleName, optionId, newValue)
+      this.updateConfig(evt.target.getAttribute('data-optid'), evt.target.value, evt.target.getAttribute('data-notice'))
     },
     textChange: function(evt){
-      let newValue = evt.target.value
-      let moduleName = evt.target.getAttribute('data-module')
-      let optionId = evt.target.getAttribute('data-optid')
-      this.setConfigValue(moduleName, optionId, newValue)
+      this.updateConfig(evt.target.getAttribute('data-optid'), evt.target.value, evt.target.getAttribute('data-notice'))
     },
     checkChange: function(evt){
-      let newValue = evt.target.checked
-      let moduleName = evt.target.getAttribute('data-module')
-      let optionId = evt.target.getAttribute('data-optid')
-      this.setConfigValue(moduleName, optionId, newValue)
+      this.updateConfig(evt.target.getAttribute('data-optid'), evt.target.checked, evt.target.getAttribute('data-notice'))
     },
-    setConfigValue: function(moduleName, optionId, value) {
-      this.loadConfig()
-      this.config[optionId] = value
-
-
-      let config = JSON.parse(localStorage.getItem('config'))
-      if (!config[moduleName]) config[moduleName] = {}
-      config[moduleName][optionId] = value
-      localStorage.setItem('config', JSON.stringify(config))
-    },
-    makeConfig: function(){
-      // Config exists in local storage
-      if (!localStorage.getItem('config')) localStorage.setItem('config', '{}')
-      let fullConfig = JSON.parse(localStorage.getItem('config'))
-      // Module exists in config contents
-      if (!fullConfig[this.meta.name]) {
-        fullConfig[this.meta.name] = {}
-        localStorage.setItem('config', JSON.stringify(fullConfig))
-      }
-    },
-    saveConfig: function(){
-
-    },
-    loadConfig: function(){
-      this.makeConfig()
-      // Load defaults
-      this.meta.options.forEach(option => {
-        this.config[option.id] = option.default || null
-      })
-      // Load saved user preferences
-      let fullConfig = JSON.parse(localStorage.getItem('config'))
-      this.config = Object.assign(this.config, fullConfig[this.meta.name])
+    updateConfig: function(optId, value, notice){
+      if (notice) this.notice = notice
+      this.config.set(optId, value)
     }
   },
   mounted() {
-    this.loadConfig()
+    // this.config = new HioriSDK.Options(this.meta.name)
     this.$forceUpdate()
   }
 }
@@ -120,9 +84,14 @@ export default {
   }
   .module-options {
     font-size:12px;
+    margin:0px 0px 5px 0px;
     .module-option {
 
     }
+  }
+  .module-notice {
+    padding:3px 5px;
+    background:#def;
   }
 }
 </style>

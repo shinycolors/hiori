@@ -2,6 +2,7 @@ import HioriSDK from '@sdk'
 import Messages from './locale'
 
 class Dialog extends HioriSDK.ContentScript {
+  get name() { return 'dialog' }
 
   constructor() {
     super()
@@ -11,7 +12,6 @@ class Dialog extends HioriSDK.ContentScript {
   }
 
   run() {
-    console.info('! dialog !')
     this.loadTranslations()
     this.modifySceneManager()
   }
@@ -101,8 +101,8 @@ class Dialog extends HioriSDK.ContentScript {
       {
         e.preventDefault()
         link.click()
-        
-        // Remove the event so it doesn't fire the download twice 
+
+        // Remove the event so it doesn't fire the download twice
         // if key keeps pressed for a significant amout of time
         document.removeEventListener("keydown", kbDownHandler)
       }

@@ -22,7 +22,8 @@ export default {
             "name": "Korean",
             "value": "ko_kr"
           }
-        ]
+        ],
+        "notice": "A browser restart is required in order for this change to take effect."
       }
     ]
   },

@@ -7,7 +7,8 @@
       "title": "Enabled",
       "desc": "Toggle this feature",
       "type": "check",
-      "default": true
+      "default": true,
+      "notice": "A browser restart is required in order for this change to take effect."
     }
   ]
 }
