@@ -8,7 +8,10 @@ class Dialog extends HioriSDK.ContentScript {
     super()
     this.lang = 'en_us'
     this.lastScene = null
+    this.lastCommID = null
     this.translations = null
+    this.downloadLink = null
+    this.events = []
   }
 
   run() {
@@ -52,6 +55,9 @@ class Dialog extends HioriSDK.ContentScript {
 
   findDialogFromScene(scene) {
     let self = this
+
+    this.lastCommID = (scene._event ? scene._event.id : this.lastCommID)
+
     // Regular dialog
     if (scene._eventTracks) {
       if (scene._eventTracks.length) {
@@ -65,7 +71,15 @@ class Dialog extends HioriSDK.ContentScript {
     // Event dialogs
     if (scene._trackManager && scene._trackManager._tracks)
       this.translate(scene._trackManager._tracks)
+
+    // Character reactions (template)
+    /*if (scene._mainLayer &&
+        scene._mainLayer._topLayer &&
+        scene._mainLayer._topLayer._topCharacterReaction)
+      this.translateReactions(scene._mainLayer._topLayer._topCharacterReaction)*/
   }
+
+  //translateReactions(characterData) {}
 
   translate(dialogList) {
     // Show raw texts in JSON form for data extraction
@@ -79,6 +93,13 @@ class Dialog extends HioriSDK.ContentScript {
           jp: dialog.text,
           tl: ''
         }
+      }),
+
+      choices: dialogList.filter(v=>!!v.select).map(choice => {
+        return {
+          jp: choice.select,
+          tl: ''
+        }
       })
     }
 
@@ -86,12 +107,19 @@ class Dialog extends HioriSDK.ContentScript {
     let file = new Blob([JSON.stringify(showRaws, null, '\t')], {type: "application/json;charset=UTF-8"})
     let url = URL.createObjectURL(file)
 
-    // Create link to the URL resource and set it so it can be opened in a new window and downloaded
-    let link = document.createElement("a")
+    // If the download link element doens't exist, create it
+    if ( !this.downloadLink )
+      this.downloadLink = document.createElement("a")
 
-    link.href = url
-    link.download = "dialog_export.json"
-    link.target = "_blank"
+    // [bugfix] Firefox can't click the element if it is not in the DOM
+    document.body.appendChild(this.downloadLink)
+
+    // Set the prefix to the commid OR the unique date
+    let prefix = (!!this.lastCommID ? this.lastCommID : "unknownID")
+
+    this.downloadLink.href = url
+    this.downloadLink.download = commid + "_dialog_export.json"
+    this.downloadLink.target = "_blank"
 
     // Create a keyboard shortcut handler to automate the click and download
     function kbDownHandler(e)
@@ -99,17 +127,27 @@ class Dialog extends HioriSDK.ContentScript {
       // Ctrl + Shift + D
       if ( e.ctrlKey == true && e.shiftKey == true && e.which == 68 )
       {
-        e.preventDefault()
-        link.click()
+        // Remove all handlers, so the event doesn't fire twice and 
+        // previous non-saved commus don't replicate the event either
+        let hdlr = null
+        while ( hdlr = self.events.shift() )
+        {
+          document.removeEventListener("keydown", hdlr)
+        }
 
-        // Remove the event so it doesn't fire the download twice
-        // if key keeps pressed for a significant amout of time
-        document.removeEventListener("keydown", kbDownHandler)
+        e.preventDefault()
+
+        // Click and remove from DOM
+        self.downloadLink.click()
+        document.body.removeChild(self.downloadLink);
       }
     }
 
     // Listen to the keyboard event
     document.addEventListener("keydown", kbDownHandler)
+
+    // Push the ev fn to the array
+    this.events.push(kbDownHandler);
 
     console.log("\nTRANSLATORS/CONTRIBUTORS:\nPress Ctrl + Shift + D while focussing the game window to export the dialog file. Thanks :).\n\n")
 
@@ -119,18 +157,21 @@ class Dialog extends HioriSDK.ContentScript {
       if (dialog.speaker) {
         if (this.translations[dialog.speaker]) {
           dialog.speaker = this.translations[dialog.speaker]
-        } else {
-          console.log(dialog.speaker)
-          // dialog.speaker = '+' + dialog.speaker + '+'
         }
       }
+
       // Translate message
       if (dialog.text) {
         if (this.translations[dialog.text]) {
           dialog.text = this.translations[dialog.text]
-        } else {
-          console.log(dialog.text)
-          // dialog.text = '+' + dialog.text + '+'
+        }
+      }
+      
+      // Translate choice
+      if (dialog.select)
+      {
+        if (this.translations[dialog.select]) {
+          dialog.select = this.translations[dialog.select]
         }
       }
     })
