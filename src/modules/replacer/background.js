@@ -4,20 +4,24 @@ import logicChrome from './browsers/chrome'
 import logicFirefox from './browsers/firefox'
 
 class Replacer extends HioriSDK.BackgroundScript {
+  get name() { return 'replacer' }
 
   constructor(env) {
     super()
+    if (!this.options.get('enabled')) return;
     this.browser = env.browser
-    this.lang = 'en'
+    this.lang = this.options.get('lang', 'global')
   }
 
   run() {
+    if (!this.options.get('enabled')) return;
+
     if (this.browser == HioriSDK.Browser.CHROME) {
-      console.info('! replacer-chrome !')
+      console.info('! replacer-chrome !', this.lang)
       logicChrome(images[this.lang])
 
     } else if (this.browser == HioriSDK.Browser.FIREFOX) {
-      console.info('! replacer-firefox !')
+      console.info('! replacer-firefox !', this.lang)
       logicFirefox(images[this.lang])
 
     } else {
