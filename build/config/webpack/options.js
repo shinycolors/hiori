@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const env = require('../environment')
 
 module.exports = {
@@ -14,7 +15,8 @@ module.exports = {
   resolve: {
     alias: {
       '@sdk': path.resolve(process.cwd(), 'src/sdk'),
-      '@modules': path.resolve(process.cwd(), 'src/modules')
+      '@modules': path.resolve(process.cwd(), 'src/modules'),
+      '@components': path.resolve(process.cwd(), 'src/components')
     }
   },
   module: {
@@ -37,12 +39,25 @@ module.exports = {
             name: '[path][name].[ext]'
           }
         }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      ENV: JSON.stringify(env.appConfig)
+      ENV: JSON.stringify(JSON.stringify(env.appConfig))
     }),
     new HtmlWebpackPlugin({
       filename: 'html/options.html'

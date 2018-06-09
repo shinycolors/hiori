@@ -26,12 +26,14 @@ gulp.task('static', function(done){
 	seq(['static:manifest', 'static:html', 'static:img'])(done)
 })
 gulp.task('static:manifest', function() {
-	return gulp.src('src/manifest.json')
+	let stream = gulp.src('src/manifest.json')
 		.pipe(jsonModify({ key: 'name', value: packageJson.name }))
 		.pipe(jsonModify({ key: 'short_name', value: packageJson.short_name }))
 		.pipe(jsonModify({ key: 'version', value: packageJson.version }))
 		.pipe(jsonModify({ key: 'description', value: packageJson.description }))
-		.pipe(gulp.dest(TARGET_DIR))
+  if (env.name !== 'development')
+    stream.pipe(jsonModify({ key: 'content_security_policy', value: 'script-src \'self\'; object-src \'self\'' }))
+	return stream.pipe(gulp.dest(TARGET_DIR))
 })
 gulp.task('static:html', function() {
 	return gulp.src('src/html/**/*') .pipe(gulp.dest(path.join(TARGET_DIR, 'html')))

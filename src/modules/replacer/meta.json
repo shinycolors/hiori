@@ -1,0 +1,14 @@
+{
+  "name": "replacer",
+  "description": "Replaces interface elements into translated versions",
+  "options": [
+    {
+      "id": "enabled",
+      "title": "Enabled",
+      "desc": "Toggle this feature",
+      "type": "check",
+      "default": true,
+      "notice": "A browser restart is required in order for this change to take effect."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "SC3",
   "short_name": "SC3",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "Shiny Colors translation project",
   "main": "index.js",
   "scripts": {
@@ -16,20 +16,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dragonjet/hiori.git"
+    "url": "git+https://github.com/shinycolors/hiori.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "github.com/shinycolors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dragonjet/hiori/issues"
+    "url": "https://github.com/shinycolors/hiori/issues"
   },
-  "homepage": "https://github.com/dragonjet/hiori#readme",
+  "homepage": "https://github.com/shinycolors/hiori#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "cross-env": "^5.1.4",
+    "css-loader": "^0.28.11",
     "deep-extend": "^0.5.1",
     "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
@@ -39,12 +39,18 @@
     "gulp-wait": "0.0.2",
     "gulp-zip": "^4.1.0",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
+    "vue-loader": "^15.0.9",
+    "vue-template-compiler": "^2.5.16",
     "webpack": "^4.6.0",
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
     "concurrently": "^3.5.1",
-    "dot-object": "^1.7.0"
+    "dot-object": "^1.7.0",
+    "vue": "^2.5.16"
   }
 }
