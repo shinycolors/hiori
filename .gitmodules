@@ -1,3 +1,3 @@
 [submodule "src/modules/dialog/locale"]
 	path = src/modules/dialog/locale
-	url = https://github.com/shinycolors/imassc-translations.git
+	url = https://github.com/shinycolors/sc3-translations.git

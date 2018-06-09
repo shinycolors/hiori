@@ -2,7 +2,8 @@
   "manifest_version": 2,
   "icons": {
     "16": "img/16.png",
-    "64": "img/64.png"
+    "64": "img/64.png",
+    "128": "img/128.png"
   },
   "permissions": [
     "webRequest",
