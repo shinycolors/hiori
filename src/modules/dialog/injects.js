@@ -82,6 +82,8 @@ class Dialog extends HioriSDK.ContentScript {
   //translateReactions(characterData) {}
 
   translate(dialogList) {
+    let self = this
+    
     // Show raw texts in JSON form for data extraction
     let showRaws = {
       // notes: [
@@ -118,7 +120,7 @@ class Dialog extends HioriSDK.ContentScript {
     let prefix = (!!this.lastCommID ? this.lastCommID : "unknownID")
 
     this.downloadLink.href = url
-    this.downloadLink.download = commid + "_dialog_export.json"
+    this.downloadLink.download = prefix + "_dialog_export.json"
     this.downloadLink.target = "_blank"
 
     // Create a keyboard shortcut handler to automate the click and download
