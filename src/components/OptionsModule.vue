@@ -3,8 +3,8 @@
     <div class="module-name"><code>{{meta.name}}</code></div>
     <div class="module-desc">{{meta.description}}</div>
     <div class="module-options">
-      <div class="module-option" v-for="option in meta.options">
-        <OptionsSelector :meta="meta" :option="option" :config="config" :notice="notice" />
+      <div class="module-option" v-for="option in meta.options" :key="option.id">
+        <OptionForm :name="meta.name" :option="option" :config="config" v-on:notice="callNotice" />
       </div>
     </div>
     <div class="module-notice" v-show="notice">{{notice}}</div>
@@ -13,7 +13,7 @@
 
 <script>
 import HioriSDK from '@sdk'
-import OptionsSelector from './OptionsSelect.vue'
+import OptionForm from './OptionForm.vue'
 export default {
   props: [ 'meta' ],
   data() {
@@ -22,8 +22,13 @@ export default {
       notice: ''
     }
   },
+  methods: {
+    callNotice(notice) {
+      if (notice) this.notice = notice
+    }
+  },
   components: {
-    OptionsSelector
+    OptionForm
   }
 }
 </script>
