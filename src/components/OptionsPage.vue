@@ -1,6 +1,6 @@
 <template>
 	<div class="sc3-options-page">
-    <div v-for="moduleKey in Object.keys(modules)">
+    <div v-for="moduleKey in Object.keys(modules)" :key="moduleKey.id">
       <ModuleOptions :meta="modules[moduleKey]" />
     </div>
 	</div>
