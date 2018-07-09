@@ -13,6 +13,10 @@ class ContentEntry extends HioriSDK.Entry {
       injects.src = chrome.extension.getURL('injects.js')
       document.body.appendChild(injects)
     })
+
+    chrome.runtime.sendMessage({method: "getLocalStorage"}, (response) => {
+      localStorage.setItem('config', response.config)
+    })
   }
 
 }

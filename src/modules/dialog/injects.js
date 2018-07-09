@@ -6,7 +6,8 @@ class Dialog extends HioriSDK.ContentScript {
 
   constructor() {
     super()
-    this.lang = 'en_us'
+    if (!this.options.get('enabled')) return;
+    this.lang = this.options.get('lang', 'global')
     this.lastScene = null
     this.lastCommID = null
     this.translations = null
@@ -15,6 +16,7 @@ class Dialog extends HioriSDK.ContentScript {
   }
 
   run() {
+    if (!this.options.get('enabled')) return;
     this.loadTranslations()
     this.modifySceneManager()
   }
@@ -127,7 +129,7 @@ class Dialog extends HioriSDK.ContentScript {
       // Ctrl + Shift + D
       if ( e.ctrlKey == true && e.shiftKey == true && e.which == 68 )
       {
-        // Remove all handlers, so the event doesn't fire twice and 
+        // Remove all handlers, so the event doesn't fire twice and
         // previous non-saved commus don't replicate the event either
         let hdlr = null
         while ( hdlr = self.events.shift() )
@@ -166,7 +168,7 @@ class Dialog extends HioriSDK.ContentScript {
           dialog.text = this.translations[dialog.text]
         }
       }
-      
+
       // Translate choice
       if (dialog.select)
       {
